@@ -20,6 +20,9 @@ import (
 	"vben/modules/sys/post"
 	"vben/modules/sys/role"
 	"vben/modules/sys/user"
+	dictd "vben/modules/tool/dict/data"
+	dict "vben/modules/tool/dict/main"
+	"vben/modules/tool/form"
 	"vben/pkg/mysql"
 
 	cache "github.com/chenyahui/gin-cache"
@@ -93,6 +96,10 @@ func Routers(e *gin.Engine) {
 
 	config.Init(e)
 	notice.Init(e)
+
+	form.Init(e)
+	dict.Init(e)
+	dictd.Init(e)
 
 	err := mysql.MysqlDb().AutoMigrate(&group.SysGroup{}, &groupc.SysGroupCate{}, &group.SysGroupOrg{})
 	if err != nil {
