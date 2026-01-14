@@ -1,0 +1,198 @@
+{{ define "protocol.tmpl" }}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>{{ .title }}</title>
+    <style>
+        html,
+        body {
+            background-color: #f6f8f9;
+        }
+
+        .main {
+            background-color: #ffffff;
+            width: 90%;
+            max-width: 1600px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 24px 40px;
+            padding-bottom: 400px;
+        }
+
+        .container {
+            padding: 90px 75px;
+        }
+
+        p {
+            -webkit-margin-before: 0;
+            -webkit-margin-after: 0;
+            line-height: 24px;
+            font-size: 16px;
+        }
+        li{
+            line-height: 24px;
+        }
+
+        .desc {
+            text-align: left;
+            font-size: 16px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 22px;
+            padding-bottom: 40px;
+        }
+
+        .content-title {
+            text-align: left;
+            font-size: 20px;
+        }
+
+        .list {
+            list-style: none;
+        }
+
+        .content-list-item {
+            text-indent: 2em;
+        }
+
+        .orderly-list {
+            /* margin-left: 2em; */
+        }
+
+        .orderly-list-item {
+            margin-left: 2em;
+            position: relative;
+        }
+
+        .orderly-list-item .index {
+            position: absolute;
+        }
+
+        .orderly-list-item-desc {
+            display: inline-block;
+            position: relative;
+            left: 1.2em;
+            padding-right: 2em;
+        }
+
+        .footer {
+            text-align: right;
+            padding-top: 40px;
+        }
+
+        .list-item-inner {
+            position: relative;
+            margin-left: 2em;
+            padding-right: 2em;
+        }
+
+        .index-inner {
+            position: absolute;
+        }
+
+        .list-item-desc-inner {
+            display: inline-block;
+            position: relative;
+            left: 1em;
+        }
+
+        .content .desc {
+            text-indent: 2em;
+        }
+
+        .informal {
+            padding-top: 40px;
+        }
+
+        .table {
+            width: 1400px;
+            margin: 0 auto;
+            white-space: normal;
+            position: relative;
+        }
+
+        .table-row {
+            margin: 0;
+            padding: 0;
+            border-left: 1px dashed #778899;
+            border-top: 1px dashed #778899;
+            position: relative;
+            white-space: normal;
+            position: absolute;
+        }
+
+        .table-column {
+            text-align: left;
+            font-size: 17px;
+            display: inline-block;
+            margin: 0;
+            padding: 15px 15px;
+            border-right: 1px dashed #778899;
+            border-bottom: 1px dashed #778899;
+            position: relative;
+            width: 670px;
+            background: 0 0;
+            white-space: normal;
+        }
+
+        .table-row.left .table-column {
+            border-right: none;
+        }
+
+        .table-row.right {
+            left: 700px;
+        }
+
+        .gaizhang {
+            height: 100px;
+        }
+
+        .qianming {
+            height: 60px;
+        }
+
+        .inner-span {
+            padding-left: 2em;
+        }
+        .msg{
+            background-color: #fcf8e3;
+            border-color: #faebcc;
+            color: #8a6d3b;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+        @media screen and (max-width: 760px) {
+            .container{
+                padding: 0;
+            }
+            .main{
+                padding: 24px;
+                box-sizing: border-box;
+                margin: 0;
+                width: 100%;
+            }
+            .orderly-list-item{
+                margin-left: 1.2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="main">
+    <div class="container">
+         {{ .content }}
+    </div>
+</div>
+</body>
+
+</html>
+
+{{ end }}

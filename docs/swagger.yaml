@@ -1,0 +1,11 @@
+basePath: /
+host: 127.0.0.1:8080
+info:
+  contact:
+    name: vben-go
+    url: https://gitee.com/vben/vben-go
+  description: 基于Go，gin，JWT，vue前后端分离的权限管理系统
+  title: vben-go 接口文档
+  version: v1.0.2
+paths: {}
+swagger: "2.0"
