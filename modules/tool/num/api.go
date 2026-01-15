@@ -1,4 +1,4 @@
-package dictd
+package num
 
 import (
 	"net/http"
@@ -8,7 +8,6 @@ import (
 	"vben/app/core/utils/R"
 	"vben/common/json/timex"
 	"vben/common/r"
-	"vben/common/utils"
 	"vben/pkg/mysql"
 
 	"github.com/gin-gonic/gin"
@@ -18,15 +17,8 @@ import (
 func Get(c *gin.Context) {
 	pageNum, _ := strconv.Atoi(c.DefaultQuery("pageNum", "1"))
 	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
-	dicidStr := c.DefaultQuery("dicid", "0") // 默认值为 "0"
-	dicid, err := strconv.ParseInt(dicidStr, 10, 64)
-	if err != nil {
-		c.JSON(400, gin.H{"error": "参数id格式错误"})
-		return
-	}
-
-	var list []ToolDictData
-	queryDB := mysql.MysqlDb().Model(&ToolDictData{}).Where("dicid = ?", dicid)
+	var list []ToolNum
+	queryDB := mysql.MysqlDb().Model(&ToolNum{})
 	pagination := &r.PaginationQuery{
 		Page:     pageNum,
 		PageSize: pageSize,
@@ -40,21 +32,21 @@ func Get(c *gin.Context) {
 
 func GetInfo(c *gin.Context) {
 	id := c.Param("id")
-	var main ToolDictData
+	var main ToolNum
 	mysql.MysqlDb().First(&main, "id = ?", id)
-	if main.Id == 0 {
+	if main.Id == "" {
 		panic(R.ReturnFailMsg("未找到记录"))
 	}
 	c.JSON(http.StatusOK, r.Ok(main))
 }
 
 func Post(c *gin.Context) {
-	var main ToolDictData
+	var main ToolNum
 	if err := c.ShouldBindBodyWith(&main, binding.JSON); err != nil {
 		c.JSON(http.StatusOK, R.ReturnFailMsg(err.Error()))
 		return
 	}
-	main.Id = utils.NextId()
+	//main.Id = utils.NextIdStr()
 	main.Crtim = timex.Time(time.Now())
 	main.Uptim = main.Crtim
 	err := mysql.MysqlDb().Create(&main).Error
@@ -66,7 +58,7 @@ func Post(c *gin.Context) {
 }
 
 func Put(c *gin.Context) {
-	var main ToolDictData
+	var main ToolNum
 	if err := c.ShouldBindBodyWith(&main, binding.JSON); err != nil {
 		c.JSON(http.StatusOK, R.ReturnFailMsg(err.Error()))
 		return
@@ -83,7 +75,7 @@ func Delete(c *gin.Context) {
 	var ids = c.Param("ids")
 	arr := strings.Split(ids, ",")
 	for i := 0; i < len(arr); i++ {
-		err := mysql.MysqlDb().Where("id = ?", arr[i]).Delete(&ToolDictData{}).Error
+		err := mysql.MysqlDb().Where("id = ?", arr[i]).Delete(&ToolNum{}).Error
 		if err != nil {
 			panic(R.ReturnFailMsg(err.Error()))
 		}
