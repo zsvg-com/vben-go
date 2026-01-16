@@ -2,6 +2,8 @@ package admin
 
 import (
 	"time"
+	singlec "vben/admin/demo/single/cate"
+	single "vben/admin/demo/single/main"
 	api "vben/app/admin/api/system"
 	"vben/app/admin/router/monitor"
 	"vben/app/admin/router/system"
@@ -102,6 +104,8 @@ func Routers(e *gin.Engine) {
 	dict.Init(e)
 	dictd.Init(e)
 	num.Init(e)
+	single.Init(e)
+	singlec.Init(e)
 
 	err := mysql.MysqlDb().AutoMigrate(&group.SysGroup{}, &groupc.SysGroupCate{}, &group.SysGroupOrg{})
 	if err != nil {
