@@ -64,7 +64,7 @@ func Put(c *gin.Context) {
 		return
 	}
 	main.Uptim = timex.Time(time.Now())
-	mysql.MysqlDb().Exec("delete from sys_group_org where gid = ?", main.Id)
+	mysql.MysqlDb().Exec("delete from sys_group_actor where gid = ?", main.Id)
 	err := mysql.MysqlDb().Select("*").Omit("crtim,cruid").Updates(&main).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))

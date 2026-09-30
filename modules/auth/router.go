@@ -5,7 +5,6 @@ import (
 )
 
 func Init(e *gin.Engine) {
-	// 配置相关
 	g := e.Group("auth")
 	{
 		g.POST("/login", Login)
@@ -13,10 +12,4 @@ func Init(e *gin.Engine) {
 		g.GET("/code", Code)
 	}
 
-	//u := e.Group("system/user")
-	//{
-	//	u.GET("/getInfo", GetInfo)
-	//}
-	e.GET("/system/user/getInfo", GetInfo)
-	e.GET("/system/menu/getRouters", GetRouters)
 }

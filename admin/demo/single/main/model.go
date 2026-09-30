@@ -5,7 +5,7 @@ import (
 	"vben/common/json/timex"
 )
 
-type DemoSingleMain struct {
+type DemoSingle struct {
 	Id    int64      `json:"id" gorm:"type:bigint;primaryKey"` //主键ID
 	Name  string     `json:"name" gorm:"type:varchar(255)"`    //名称
 	Notes string     `json:"notes" gorm:"type:varchar(128)"`   //备注
@@ -18,6 +18,6 @@ type DemoSingleMain struct {
 	Avtag boolx.Bool `json:"avtag"`
 }
 
-func (DemoSingleMain) TableName() string {
-	return "demo_single_main"
+func (DemoSingle) TableName() string {
+	return "demo_single"
 }

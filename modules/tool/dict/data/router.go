@@ -5,7 +5,7 @@ import (
 )
 
 func Init(e *gin.Engine) {
-	g := e.Group("tool/dict/data")
+	g := e.Group("tool/dictd")
 	{
 		g.GET("", Get)
 		g.GET("/info/:id", GetInfo)

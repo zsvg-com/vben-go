@@ -13,8 +13,8 @@ type SysUser struct {
 	Email    string     `json:"email"`                //邮箱
 	Monum    string     `json:"monum"`                //手机号
 	Gender   string     `json:"gender"`               //性别
-	Depid    string     `json:"depid"`                //部门ID
-	Depna    string     `json:"depna" gorm:"-"`       //部门名称
+	Orgid    string     `json:"orgid"`                //部门ID
+	Orgna    string     `json:"orgna" gorm:"-"`       //部门名称
 	Tier     string     `json:"tier"`                 //层级,以“_”隔开
 	Job      string     `json:"job"`                  //职务
 	Avatar   string     `json:"avatar"`               //头像URL

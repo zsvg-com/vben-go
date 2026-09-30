@@ -1,10 +1,11 @@
 package job
 
 import (
+	"strconv"
+	"vben/common/config"
+
 	"github.com/xxl-job/xxl-job-executor-go"
 	"github.com/xxl-job/xxl-job-executor-go/example/task"
-	"strconv"
-	"vben/config"
 )
 
 /*

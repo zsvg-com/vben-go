@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"vben/config"
+	"vben/common/config"
 )
 
 func GetXxlJobCookie() []byte {

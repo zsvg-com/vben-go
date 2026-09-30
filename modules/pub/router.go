@@ -8,10 +8,11 @@ func Init(e *gin.Engine) {
 	// 配置相关
 	g := e.Group("pub")
 	{
-		g.GET("/org", GetOrg)
-		g.POST("/org/rece", PostRece)
-		g.GET("/org/rece", GetRece)
-		g.GET("/org/group/tree", GetGroupTree)
+		g.GET("/actor", GetActor)
+		g.POST("/rece", PostRece)
+		g.GET("/rece", GetRece)
+		g.GET("/group/tree", GetGroupTree)
+		g.GET("/user", GetUser)
+		g.GET("/menus", GetMenus)
 	}
-
 }

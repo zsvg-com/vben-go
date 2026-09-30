@@ -1,10 +1,10 @@
-<div align="center"><h1 align="center">vben-python</h1></div>
+<div align="center"><h1 align="center">vben-go</h1></div>
 <div align="center"><h3 align="center">一个开箱即用的通用开发平台GO语言版</h3></div>
 
 # 🍿 相关地址
 
 * PC端体验地址 ：[http://8.153.168.178/](http://8.153.168.178/)
-* 移动端体验地址 ：[http://8.153.168.178/app/](http://8.153.168.178/unibest/)
+* 移动端体验地址 ：[http://8.153.168.178/app/](http://8.153.168.178/app/)
 * 联系方式（加微信后可找小狐狸拉进交流群）：
 
 ![输入图片说明](https://gitee.com/vben/vben-app/raw/master/docs/wx.jpg "微信联系方式")

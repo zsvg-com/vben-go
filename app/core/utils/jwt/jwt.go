@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 	"vben/app/admin/model/constants"
-	"vben/config"
+	config2 "vben/common/config"
 	"vben/pkg/cache/redisCache"
 
 	"github.com/gin-gonic/gin"
@@ -17,19 +17,19 @@ func CreateToken(UserName string, UserId int, DeptId int, uuid string) (string, 
 		"user_name": UserName,
 		"user_id":   UserId,
 		"dept_id":   DeptId,
-		"exp":       time.Now().Unix() + int64(config.Jwt.JwtTtl),
+		"exp":       time.Now().Unix() + int64(config2.Jwt.JwtTtl),
 		"iss":       "vben-go",
 		"uuid":      uuid,
 	})
 
-	mySigningKey := []byte(config.Jwt.Secret)
+	mySigningKey := []byte(config2.Jwt.Secret)
 
 	return token.SignedString(mySigningKey)
 }
 
 func VerifyToken(tokenStr string) (*jwt.Token, error) {
-	mySigningKey := []byte(config.Jwt.Secret)
-	tokenStr = strings.ReplaceAll(tokenStr, config.HeaderSignTokenStr, "")
+	mySigningKey := []byte(config2.Jwt.Secret)
+	tokenStr = strings.ReplaceAll(tokenStr, config2.HeaderSignTokenStr, "")
 	return jwt.Parse(tokenStr, func(t *jwt.Token) (interface{}, error) {
 		return mySigningKey, nil
 	})
@@ -39,7 +39,7 @@ func JWTAuthMiddleware() func(ctx *gin.Context) {
 	return func(ctx *gin.Context) {
 		// 根据实际情况取TOKEN, 这里从request header取
 		header := ctx.Request.Header
-		tokenStr := header.Get(config.HeaderSignToken)
+		tokenStr := header.Get(config2.HeaderSignToken)
 		if len(tokenStr) < 1 {
 			ctx.JSON(http.StatusOK, gin.H{
 				"msg":  "令牌不能为空",
@@ -80,7 +80,7 @@ func JWTAuthMiddleware() func(ctx *gin.Context) {
 }
 
 func GetJwtUuid(ctx *gin.Context) (string, error) {
-	tokenStr := ctx.Request.Header.Get(config.HeaderSignToken)
+	tokenStr := ctx.Request.Header.Get(config2.HeaderSignToken)
 	if len(tokenStr) <= 0 {
 		return "", nil
 	}

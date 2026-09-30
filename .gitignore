@@ -19,6 +19,5 @@
 /.DS_Store
 */.DS_Store
 */*/.DS_Store
-config.yaml
 /home
 package-lock.json

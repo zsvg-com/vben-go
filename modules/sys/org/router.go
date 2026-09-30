@@ -1,13 +1,14 @@
-package single
+package org
 
 import (
 	"github.com/gin-gonic/gin"
 )
 
 func Init(e *gin.Engine) {
-	g := e.Group("demo/single")
+	g := e.Group("sys/org")
 	{
 		g.GET("", Get)
+		g.GET("/tree", GetTree)
 		g.GET("/info/:id", GetInfo)
 		g.POST("", Post)
 		g.PUT("", Put)

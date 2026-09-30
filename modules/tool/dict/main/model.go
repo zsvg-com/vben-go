@@ -5,7 +5,7 @@ import (
 	"vben/common/json/timex"
 )
 
-type ToolDictMain struct {
+type ToolDict struct {
 	Id    int64      `json:"id" gorm:"type:bigint;primaryKey"` //主键ID
 	Name  string     `json:"name" gorm:"type:varchar(255)"`    //名称
 	Code  string     `json:"code" gorm:"type:varchar(32)"`     //字典代码
@@ -21,6 +21,12 @@ type ToolDictMain struct {
 	Ornum int        `json:"ornum" gorm:"type:int"` //排序号
 }
 
-func (ToolDictMain) TableName() string {
-	return "tool_dict_main"
+func (ToolDict) TableName() string {
+	return "tool_dict"
+}
+
+type DictDataVo struct {
+	Label string `json:"label"` //数据标签
+	Value string `json:"value"` //数据键值
+	Shsty string `json:"shsty"` //显示样式
 }

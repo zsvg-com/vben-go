@@ -6,8 +6,8 @@ type IdNameAvatarVo struct {
 	Avatar string `json:"avatar"` //头像
 }
 
-type IdNameDeptVo struct {
+type IdNameOrgVo struct {
 	Id   string `json:"id"`   //ID
 	Name string `json:"name"` //名称
-	Dept string `json:"dept"` //头像
+	Org  string `json:"org"`  //部门
 }

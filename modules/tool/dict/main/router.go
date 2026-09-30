@@ -5,10 +5,11 @@ import (
 )
 
 func Init(e *gin.Engine) {
-	g := e.Group("tool/dict/main")
+	g := e.Group("tool/dict")
 	{
 		g.GET("", Get)
 		g.GET("/list", GetList)
+		g.GET("/data", GetData)
 		g.GET("/info/:id", GetInfo)
 		g.POST("", Post)
 		g.PUT("", Put)

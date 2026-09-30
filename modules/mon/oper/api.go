@@ -1,12 +1,10 @@
-package single
+package oplog
 
 import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 	"vben/app/core/utils/R"
-	"vben/common/json/timex"
 	"vben/common/r"
 	"vben/common/utils"
 	"vben/pkg/mysql"
@@ -18,8 +16,8 @@ import (
 func Get(c *gin.Context) {
 	pageNum, _ := strconv.Atoi(c.DefaultQuery("pageNum", "1"))
 	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
-	var list []DemoSingle
-	queryDB := mysql.MysqlDb().Model(&DemoSingle{})
+	var list []MonOperLog
+	queryDB := mysql.MysqlDb().Model(&MonOperLog{})
 	pagination := &r.PaginationQuery{
 		Page:     pageNum,
 		PageSize: pageSize,
@@ -33,7 +31,7 @@ func Get(c *gin.Context) {
 
 func GetInfo(c *gin.Context) {
 	id := c.Param("id")
-	var main DemoSingle
+	var main MonOperLog
 	mysql.MysqlDb().First(&main, "id = ?", id)
 	if main.Id == 0 {
 		panic(R.ReturnFailMsg("未找到记录"))
@@ -42,14 +40,12 @@ func GetInfo(c *gin.Context) {
 }
 
 func Post(c *gin.Context) {
-	var main DemoSingle
+	var main MonOperLog
 	if err := c.ShouldBindBodyWith(&main, binding.JSON); err != nil {
 		c.JSON(http.StatusOK, R.ReturnFailMsg(err.Error()))
 		return
 	}
 	main.Id = utils.NextId()
-	main.Crtim = timex.Time(time.Now())
-	main.Uptim = main.Crtim
 	err := mysql.MysqlDb().Create(&main).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
@@ -58,25 +54,11 @@ func Post(c *gin.Context) {
 
 }
 
-func Put(c *gin.Context) {
-	var main DemoSingle
-	if err := c.ShouldBindBodyWith(&main, binding.JSON); err != nil {
-		c.JSON(http.StatusOK, R.ReturnFailMsg(err.Error()))
-		return
-	}
-	main.Uptim = timex.Time(time.Now())
-	err := mysql.MysqlDb().Select("*").Omit("crtim,cruid").Updates(&main).Error
-	if err != nil {
-		panic(R.ReturnFailMsg(err.Error()))
-	}
-	c.JSON(http.StatusOK, r.Ok(main.Id))
-}
-
 func Delete(c *gin.Context) {
 	var ids = c.Param("ids")
 	arr := strings.Split(ids, ",")
 	for i := 0; i < len(arr); i++ {
-		err := mysql.MysqlDb().Where("id = ?", arr[i]).Delete(&DemoSingle{}).Error
+		err := mysql.MysqlDb().Where("id = ?", arr[i]).Delete(&MonOperLog{}).Error
 		if err != nil {
 			panic(R.ReturnFailMsg(err.Error()))
 		}

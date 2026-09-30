@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 	"time"
-	"vben/config"
+	"vben/common/config"
 
 	"github.com/go-redis/redis/v8"
 )

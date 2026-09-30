@@ -9,7 +9,7 @@ import (
 	"vben/common/json/timex"
 	"vben/common/r"
 	"vben/common/utils"
-	"vben/modules/sys/org"
+	"vben/modules/sys/actor"
 	"vben/pkg/mysql"
 
 	"github.com/gin-gonic/gin"
@@ -55,11 +55,11 @@ func Post(c *gin.Context) {
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
-	var sysOrg org.SysOrg
-	sysOrg.Id = main.Id
-	sysOrg.Name = main.Name
-	sysOrg.Type = 4
-	err = mysql.MysqlDb().Create(&sysOrg).Error
+	var sysActor actor.SysActor
+	sysActor.Id = main.Id
+	sysActor.Name = main.Name
+	sysActor.Type = 4
+	err = mysql.MysqlDb().Create(&sysActor).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
@@ -73,12 +73,12 @@ func Put(c *gin.Context) {
 		return
 	}
 	main.Uptim = timex.Time(time.Now())
-	mysql.MysqlDb().Exec("delete from sys_post_org where pid = ?", main.Id)
+	mysql.MysqlDb().Exec("delete from sys_post_actor where pid = ?", main.Id)
 	err := mysql.MysqlDb().Select("*").Omit("crtim,cruid").Updates(&main).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
-	mysql.MysqlDb().Model(&org.SysOrg{}).Where("id = ?", main.Id).Update("name", main.Name)
+	mysql.MysqlDb().Model(&actor.SysActor{}).Where("id = ?", main.Id).Update("name", main.Name)
 	c.JSON(http.StatusOK, r.Ok(main.Id))
 
 }

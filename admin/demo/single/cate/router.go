@@ -5,7 +5,7 @@ import (
 )
 
 func Init(e *gin.Engine) {
-	g := e.Group("demo/single/cate")
+	g := e.Group("demo/singlec")
 	{
 		g.GET("", Get)
 		g.GET("/tree", GetTree)

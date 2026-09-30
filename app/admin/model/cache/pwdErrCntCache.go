@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"time"
 	"vben/app/admin/model/constants"
-	"vben/config"
+	"vben/common/config"
 	"vben/pkg/cache/redisCache"
 )
 

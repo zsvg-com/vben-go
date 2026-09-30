@@ -40,12 +40,12 @@ func Get(c *gin.Context) {
 
 func GetTree(c *gin.Context) {
 	var sql = "select id,name,pid from sys_group_cate"
-	var list []r.Stree
+	var list []r.Ltree
 	err := mysql.MysqlDb().Raw(sql).Scan(&list).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
-	tree := r.TreeBuild(list)
+	tree := r.BuildLtree(list)
 	c.JSON(http.StatusOK, r.Ok(tree))
 }
 

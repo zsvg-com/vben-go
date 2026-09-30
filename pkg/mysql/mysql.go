@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 	"time"
-	"vben/config"
+	"vben/common/config"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"

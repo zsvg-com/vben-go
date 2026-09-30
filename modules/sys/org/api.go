@@ -1,4 +1,4 @@
-package dept
+package org
 
 import (
 	"net/http"
@@ -9,7 +9,7 @@ import (
 	"vben/common/json/timex"
 	"vben/common/r"
 	"vben/common/utils"
-	"vben/modules/sys/org"
+	"vben/modules/sys/actor"
 	"vben/pkg/mysql"
 
 	"github.com/gin-gonic/gin"
@@ -19,9 +19,9 @@ import (
 func Get(c *gin.Context) {
 	pageNum, _ := strconv.Atoi(c.DefaultQuery("pageNum", "1"))
 	pageSize, _ := strconv.Atoi(c.DefaultQuery("pageSize", "10"))
-	var list []SysDept
+	var list []SysOrg
 	// 1. 构建基础查询
-	queryDB := mysql.MysqlDb().Model(&SysDept{})
+	queryDB := mysql.MysqlDb().Model(&SysOrg{})
 	//if name != "" {
 	//	queryDB = queryDB.Where("name LIKE ?", "%"+name+"%")
 	//}
@@ -42,7 +42,7 @@ func Get(c *gin.Context) {
 }
 
 func GetTree(c *gin.Context) {
-	var sql = "select id,name,pid from sys_dept"
+	var sql = "select id,name,pid from sys_org"
 	var list []r.Stree
 	err := mysql.MysqlDb().Raw(sql).Scan(&list).Error
 	if err != nil {
@@ -54,7 +54,7 @@ func GetTree(c *gin.Context) {
 
 func GetInfo(c *gin.Context) {
 	id := c.Param("id")
-	var main SysDept
+	var main SysOrg
 	mysql.MysqlDb().First(&main, "id = ?", id)
 	if main.Id == "" {
 		panic(R.ReturnFailMsg("未找到记录"))
@@ -63,7 +63,7 @@ func GetInfo(c *gin.Context) {
 }
 
 func Post(c *gin.Context) {
-	var main SysDept
+	var main SysOrg
 	if err := c.ShouldBindBodyWith(&main, binding.JSON); err != nil {
 		c.JSON(http.StatusOK, R.ReturnFailMsg(err.Error()))
 		return
@@ -75,11 +75,11 @@ func Post(c *gin.Context) {
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
-	var sysOrg org.SysOrg
-	sysOrg.Id = main.Id
-	sysOrg.Name = main.Name
-	sysOrg.Type = 1
-	err = mysql.MysqlDb().Create(&sysOrg).Error
+	var sysActor actor.SysActor
+	sysActor.Id = main.Id
+	sysActor.Name = main.Name
+	sysActor.Type = 1
+	err = mysql.MysqlDb().Create(&sysActor).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
@@ -88,7 +88,7 @@ func Post(c *gin.Context) {
 }
 
 func Put(c *gin.Context) {
-	var main SysDept
+	var main SysOrg
 	if err := c.ShouldBindBodyWith(&main, binding.JSON); err != nil {
 		c.JSON(http.StatusOK, R.ReturnFailMsg(err.Error()))
 		return
@@ -98,7 +98,7 @@ func Put(c *gin.Context) {
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
-	mysql.MysqlDb().Model(&org.SysOrg{}).Where("id = ?", main.Id).Update("name", main.Name)
+	mysql.MysqlDb().Model(&actor.SysActor{}).Where("id = ?", main.Id).Update("name", main.Name)
 	c.JSON(http.StatusOK, r.Ok(main.Id))
 
 }
@@ -107,7 +107,7 @@ func Delete(c *gin.Context) {
 	var ids = c.Param("ids")
 	arr := strings.Split(ids, ",")
 	for i := 0; i < len(arr); i++ {
-		err := mysql.MysqlDb().Where("id = ?", arr[i]).Delete(&SysDept{}).Error
+		err := mysql.MysqlDb().Where("id = ?", arr[i]).Delete(&SysOrg{}).Error
 		if err != nil {
 			panic(R.ReturnFailMsg(err.Error()))
 		}

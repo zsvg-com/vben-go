@@ -1,4 +1,4 @@
-package auth
+package pub
 
 import (
 	"strings"
@@ -60,16 +60,16 @@ func buildMenus(menus []menu.SysMenu) []RouterVo {
 
 		// 创建路由对象
 		router := RouterVo{
-			Hidden:    !menu.Shtag,
-			Name:      name,
-			Path:      buildPath(menu),
-			Component: menu.Comp,
-			Query:     menu.Param,
+			Shtag: menu.Shtag,
+			Name:  name,
+			Path:  buildPath(menu),
+			Comp:  menu.Comp,
+			Param: menu.Param,
 			Meta: MetaVo{
-				Title:   menu.Name,
-				Icon:    menu.Icon,
-				NoCache: !menu.Catag,
-				Link:    menu.Path,
+				Title: menu.Name,
+				Icon:  menu.Icon,
+				Catag: menu.Catag,
+				Link:  menu.Path,
 			},
 		}
 
@@ -80,9 +80,9 @@ func buildMenus(menus []menu.SysMenu) []RouterVo {
 			router.Children = buildMenus(menu.Children)
 
 			if menu.Pid == TopParentID {
-				router.Component = LAYOUT
+				router.Comp = LAYOUT
 			} else {
-				router.Component = PARENT_VIEW
+				router.Comp = PARENT_VIEW
 			}
 		} else if isMenuFrame(menu) {
 			// 处理菜单框架情况
@@ -90,16 +90,16 @@ func buildMenus(menus []menu.SysMenu) []RouterVo {
 			//router.Meta = nil
 
 			children := RouterVo{
-				Path:      menu.Path,
-				Component: menu.Comp,
-				Name:      frameName,
+				Path: menu.Path,
+				Comp: menu.Comp,
+				Name: frameName,
 				Meta: MetaVo{
-					Title:   menu.Name,
-					Icon:    menu.Icon,
-					NoCache: !menu.Catag,
-					Link:    menu.Path,
+					Title: menu.Name,
+					Icon:  menu.Icon,
+					Catag: menu.Catag,
+					Link:  menu.Path,
 				},
-				Query: menu.Param,
+				Param: menu.Param,
 			}
 
 			router.Children = []RouterVo{children}
@@ -116,9 +116,9 @@ func buildMenus(menus []menu.SysMenu) []RouterVo {
 			innerLinkName := upperFirst(routerPath) + string(menu.Id)
 
 			children := RouterVo{
-				Path:      routerPath,
-				Component: INNER_LINK,
-				Name:      innerLinkName,
+				Path: routerPath,
+				Comp: INNER_LINK,
+				Name: innerLinkName,
 				Meta: MetaVo{
 					Title: menu.Name,
 					Icon:  menu.Icon,

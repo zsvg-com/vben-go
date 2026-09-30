@@ -1,10 +1,11 @@
 package utils
 
 import (
-	"github.com/mojocn/base64Captcha"
 	"image/color"
-	"vben/config"
+	"vben/common/config"
 	"vben/pkg/cache"
+
+	"github.com/mojocn/base64Captcha"
 )
 
 // var store = base64Captcha.NewMemoryStore(20240, 3*time.Minute)

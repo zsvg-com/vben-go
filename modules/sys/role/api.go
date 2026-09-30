@@ -40,8 +40,8 @@ func GetInfo(c *gin.Context) {
 	}
 
 	//成员、菜单与接口
-	var orgSql = "select t.id,t.name from sys_org t inner join sys_role_org o on o.oid=t.id where o.rid=?"
-	err := mysql.MysqlDb().Raw(orgSql, main.Id).Scan(&main.Orgs).Error
+	var actorSql = "select t.id,t.name from sys_actor t inner join sys_role_actor a on a.aid=t.id where a.rid=?"
+	err := mysql.MysqlDb().Raw(actorSql, main.Id).Scan(&main.Actors).Error
 	if err != nil {
 		panic(R.ReturnFailMsg(err.Error()))
 	}
@@ -74,15 +74,15 @@ func Post(c *gin.Context) {
 }
 
 func insertMapping(main SysRole) {
-	orgs := make([]SysRoleOrg, len(main.Orgs))
+	actors := make([]SysRoleActor, len(main.Actors))
 
-	for i, src := range main.Orgs {
-		orgs[i] = SysRoleOrg{
+	for i, src := range main.Actors {
+		actors[i] = SysRoleActor{
 			Rid: main.Id,
-			Oid: src.Id,
+			Aid: src.Id,
 		}
 	}
-	result := mysql.MysqlDb().CreateInBatches(orgs, 10)
+	result := mysql.MysqlDb().CreateInBatches(actors, 10)
 
 	if result.Error != nil {
 		panic(R.ReturnFailMsg(result.Error.Error()))
@@ -124,7 +124,7 @@ func Put(c *gin.Context) {
 		return
 	}
 	main.Uptim = timex.Time(time.Now())
-	mysql.MysqlDb().Exec("delete from sys_role_org where rid = ?", main.Id)
+	mysql.MysqlDb().Exec("delete from sys_role_actor where rid = ?", main.Id)
 	mysql.MysqlDb().Exec("delete from sys_role_menu where rid = ?", main.Id)
 	mysql.MysqlDb().Exec("delete from sys_role_api where rid = ?", main.Id)
 	insertMapping(main)

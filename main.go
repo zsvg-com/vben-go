@@ -12,7 +12,7 @@ import (
 	"vben/app/core/utils"
 	"vben/app/core/utils/job"
 	"vben/app/core/utils/shutdown"
-	"vben/config"
+	"vben/common/config"
 	"vben/pkg/logs"
 	"vben/pkg/scheduler"
 

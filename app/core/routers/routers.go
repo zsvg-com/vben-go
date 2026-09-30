@@ -7,7 +7,7 @@ import (
 	"vben/app/core/utils"
 	error2 "vben/app/core/utils/error"
 	"vben/app/html"
-	"vben/config"
+	"vben/common/config"
 	_ "vben/docs"
 	"vben/pkg/logs"
 

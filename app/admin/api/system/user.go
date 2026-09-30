@@ -2,10 +2,6 @@ package system
 
 import (
 	"encoding/json"
-	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
-	useragent "github.com/wenlng/go-user-agent"
-	"github.com/xuri/excelize/v2"
 	"net/http"
 	"strconv"
 	"strings"
@@ -18,9 +14,14 @@ import (
 	utils2 "vben/app/core/utils"
 	"vben/app/core/utils/R"
 	"vben/app/core/utils/jwt"
-	"vben/config"
+	"vben/common/config"
 	"vben/pkg/cache/redisCache"
 	"vben/pkg/mysql"
+
+	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
+	useragent "github.com/wenlng/go-user-agent"
+	"github.com/xuri/excelize/v2"
 )
 
 func LoginHandler(context *gin.Context) {

@@ -11,14 +11,16 @@ import (
 	"vben/app/core/utils/jwt"
 	"vben/common/utils"
 	"vben/modules/auth"
+	lolog "vben/modules/mon/login"
+	oplog "vben/modules/mon/oper"
 	"vben/modules/pub"
 	myapi "vben/modules/sys/api"
 	"vben/modules/sys/config"
-	"vben/modules/sys/dept"
 	"vben/modules/sys/group"
 	"vben/modules/sys/groupc"
 	"vben/modules/sys/menu"
 	"vben/modules/sys/notice"
+	"vben/modules/sys/org"
 	"vben/modules/sys/post"
 	"vben/modules/sys/role"
 	"vben/modules/sys/user"
@@ -82,32 +84,37 @@ func Routers(e *gin.Engine) {
 	//file.InitFile(e)
 
 	/*business业务路由*/
-
 	utils.InitIdGenerator()
 	auth.Init(e)
 	pub.Init(e)
 
-	dept.Init(e)
+	/*sys*/
+	org.Init(e)
 	user.Init(e)
 	post.Init(e)
 	group.Init(e)
 	groupc.Init(e)
-
 	menu.Init(e)
 	myapi.Init(e)
 	role.Init(e)
-
 	config.Init(e)
 	notice.Init(e)
 
+	/*tool*/
 	form.Init(e)
 	dict.Init(e)
 	dictd.Init(e)
 	num.Init(e)
+
+	/*mon*/
+	lolog.Init(e)
+	oplog.Init(e)
+
+	/*admin*/
 	single.Init(e)
 	singlec.Init(e)
 
-	err := mysql.MysqlDb().AutoMigrate(&group.SysGroup{}, &groupc.SysGroupCate{}, &group.SysGroupOrg{})
+	err := mysql.MysqlDb().AutoMigrate(&group.SysGroup{}, &groupc.SysGroupCate{}, &group.SysGroupActor{})
 	if err != nil {
 		return
 	}

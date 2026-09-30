@@ -1,0 +1,65 @@
+server:
+  port: 8080
+  runMode: debug # release debug
+  logLevel: debug # debug info warn error
+  enabledSwagger: false # 是否开启swagger
+  openapiPath: "/swagger/doc.json"
+  swaggerPath: "/swagger/index.html"
+
+database:
+  primary:
+    type: mysql
+    host: 127.0.0.1
+    port: 3306
+    username: root
+    password: 123456
+    dbname: vben-go
+  secondary:
+    enabled: false
+    type: mysql
+    host: localhost
+    port: 3306
+    username: root
+    password: 123456
+    dbname: vben-go2
+  max_idle_conn: 10
+  max_open_conn: 30
+  conn_max_lifetime: 300
+
+redis:
+  host: 127.0.0.1
+  port: 6379
+  password:
+  db: 0
+
+jwt:
+  secret: 3Bde3BGEbYqtqyEUzW3ry8jKFcaPH17fRmTmqE7MDr05Lwj95uruRKrrkb44TJ4s
+  jwt_ttl: 43200 # 12 * 60 * 60 秒过期
+
+xxl-job:
+  enabled: false
+  env: dev
+  admin_address: http://localhost:9100/xxl-job-admin
+  access_token: xxl-job
+  app_name: xxl-job-executor
+  job_uname: admin
+  job_upass: admin
+  address:
+  ip:
+  port: 9102
+  log_path: /home/xxl-job/log
+  log_retention_days: 7 # 需要大于3
+  http_timeout: 5
+
+log:
+  enabled: true    # 是开启
+  logMode: default # default mysql file es
+  filePath: D:\\ruoyi\\log # 日志本地的话存放地址
+  filterate:   # 日志过滤的接口
+    - '/reg'
+
+user-password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间（默认10分钟）
+    lockTime: 10

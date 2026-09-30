@@ -3,7 +3,7 @@ package post
 import (
 	"vben/common/json/boolx"
 	"vben/common/json/timex"
-	"vben/modules/sys/org"
+	"vben/modules/sys/actor"
 )
 
 type SysPost struct {
@@ -12,9 +12,9 @@ type SysPost struct {
 	//名称
 	Name string `json:"name"`
 	//部门ID
-	Depid string `json:"depid"`
+	Orgid string `json:"orgid"`
 	//部门名称
-	Depna string `json:"depna" gorm:"-"`
+	Orgna string `json:"orgna" gorm:"-"`
 	//层级,以“_”隔开
 	Tier string `json:"tier"`
 	//标签
@@ -34,21 +34,21 @@ type SysPost struct {
 	//更新人ID
 	Upuid string `json:"upuid"`
 	//包含成员
-	Users []org.SysOrg `json:"users" gorm:"many2many:sys_post_org;foreignKey:Id;joinForeignKey:Pid;References:Id;joinReferences:Oid"`
+	Users []actor.SysActor `json:"users" gorm:"many2many:sys_post_actor;foreignKey:Id;joinForeignKey:Pid;References:Id;joinReferences:Aid"`
 }
 
 func (SysPost) TableName() string {
 	return "sys_post"
 }
 
-type SysPostOrg struct {
+type SysPostActor struct {
 	Pid string `gorm:"primaryKey"`
-	Oid string `gorm:"primaryKey"`
+	Aid string `gorm:"primaryKey"`
 
 	//Post SysPost    `gorm:"foreignKey:pid;references:id"`
-	//User org.SysOrg `gorm:"foreignKey:oid;references:id"`
+	//User actor.SysActor `gorm:"foreignKey:oid;references:id"`
 }
 
-func (SysPostOrg) TableName() string {
-	return "sys_post_org"
+func (SysPostActor) TableName() string {
+	return "sys_post_actor"
 }

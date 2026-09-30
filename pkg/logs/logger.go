@@ -8,7 +8,7 @@ import (
 	"vben/app/admin/model/constants"
 	"vben/app/admin/model/monitor"
 	"vben/app/core/utils"
-	"vben/config"
+	config2 "vben/common/config"
 
 	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"
@@ -21,10 +21,10 @@ import (
 // post put del 方法 写入数据库
 // 错误日志写入数据库
 func Logger() gin.HandlerFunc {
-	if !config.LogConfig.Enabled {
+	if !config2.LogConfig.Enabled {
 		return gin.Logger()
 	}
-	mode := config.LogConfig.LogMode
+	mode := config2.LogConfig.LogMode
 	switch mode {
 	case "default":
 		return gin.Logger()
@@ -39,7 +39,7 @@ func Logger() gin.HandlerFunc {
 }
 
 func Logrus() gin.HandlerFunc {
-	filePath := config.LogConfig.FilePath
+	filePath := config2.LogConfig.FilePath
 
 	scr, err := os.OpenFile(filePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 
@@ -206,7 +206,7 @@ func EsLogger() gin.HandlerFunc {
 }
 
 func showLog(path string) bool {
-	earte := config.LogConfig.Filtered
+	earte := config2.LogConfig.Filtered
 	for _, s := range earte {
 		if s == path {
 			return false
@@ -229,8 +229,8 @@ func Poster() {
                            |___/                               
 ` +
 		"Author:		vben\r\n" +
-		"Version:	" + config.ProjectVersion + "\r\n" +
-		"MiniGO_SDK: 	" + config.MinGoVersion + "\r\n" +
+		"Version:	" + config2.ProjectVersion + "\r\n" +
+		"MiniGO_SDK: 	" + config2.MinGoVersion + "\r\n" +
 		"Link: https://gitee.com/vben/vben-go"
 	fg.Println(logo)
 }

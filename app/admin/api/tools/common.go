@@ -1,15 +1,16 @@
 package tools
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/wxnacy/wgo/arrays"
 	"net/http"
 	"os"
 	"path"
 	"strconv"
 	"strings"
 	"vben/app/core/utils/R"
-	"vben/config"
+	"vben/common/config"
+
+	"github.com/gin-gonic/gin"
+	"github.com/wxnacy/wgo/arrays"
 )
 
 /*下载*/
